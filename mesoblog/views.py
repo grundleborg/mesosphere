@@ -9,6 +9,6 @@ def index(request):
     return render(request, 'mesoblog/index.html', context)
 
 # Article view
-def article(request):
+def article(request, article_id):
     context = {}
     return render(request, 'mesoblog/article.html', context)
