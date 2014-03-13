@@ -15,6 +15,7 @@ class Article(models.Model):
     contents = models.TextField()
     date_published = models.DateTimeField()
     published = models.BooleanField()
+    primary_category = models.ForeignKey(Category, related_name='+')
     categories = models.ManyToManyField(Category)
     
     def __str__(self):
