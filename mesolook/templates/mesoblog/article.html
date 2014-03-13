@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}MesoBlog Article Page{% endblock %}
+{% block title %}{{ article.title }}{% endblock %}
 
 {% block main %}
-  <h1>MesoBlog Article Page</h1>
+<h1>{{ article.title }}</h1>
+<h2>{{ article.date_published }}</h2>
+<p>{{ article.contents }}</p>
 {% endblock %}

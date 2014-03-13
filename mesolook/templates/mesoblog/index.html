@@ -3,5 +3,12 @@
 {% block title %}MesoBlog Index Page{% endblock %}
 
 {% block main %}
-  <h1>MesoBlog Index Page</h1>
+  <h1>Blog</h1>
+
+  <ul>
+    {% for article in articles %}
+      <li><a href="{% url 'article' article.id %}">{{ article.title }}</a></li>
+    {% endfor %}
+  </ul>
+  
 {% endblock %}
