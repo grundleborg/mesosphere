@@ -10,6 +10,13 @@ def index(request):
 
 # Article view
 def article(request, article_id):
-    article = get_object_or_404(Article, pk=article_id)
-    context = {'article': article}
+    a = get_object_or_404(Article, pk=article_id)
+    context = {'article': a}
     return render(request, 'mesoblog/article.html', context)
+
+# Article from Slug view
+def articleFromSlug(request, article_slug):
+    a = get_object_or_404(Article, slug=article_slug)
+    return article(request, a.id)
+
+
