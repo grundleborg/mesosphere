@@ -28,7 +28,6 @@ def context_processor(request):
 
     # Get the boxes and accompanying context additions from all the installed apps.
     for app in settings.INSTALLED_APPS:
-        print(app)
         try:
             module = importlib.import_module(app+".boxes")
         except ImportError:
