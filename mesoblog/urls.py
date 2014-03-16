@@ -6,5 +6,7 @@ urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     url(r'^article/(?P<article_id>\d+)$', views.article, name='article'),
     url(r'^article/(?P<article_slug>[-\w]+)$', views.articleFromSlug, name='articleFromSlug'),
+    url(r'^category/(?P<category_id>\d+)$', views.category, name='category'),
+    url(r'^category/(?P<category_slug>[-\w]+)$', views.categoryFromSlug, name='categoryFromSlug'),
 )
 

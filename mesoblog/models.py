@@ -3,6 +3,7 @@ from django.db import models
 # Represents a category which articles can be part of
 class Category(models.Model):
     name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255)
 
     def __str__(self):
         return self.name+" ["+str(self.id)+"]"

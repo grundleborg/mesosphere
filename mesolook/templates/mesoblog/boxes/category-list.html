@@ -1,0 +1,13 @@
+{% extends "box.html" %}
+
+{% block box-title %}Categories{% endblock %}
+
+{% block box-content %}
+
+<ul>
+  {% for category in all_categories %}
+    <li><a href="{% url 'categoryFromSlug' category.slug %}">{{ category.name }}</a></li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

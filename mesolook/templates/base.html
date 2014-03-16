@@ -26,7 +26,25 @@
 
   <body>
 
-    {% block main %}{% endblock %}
+    <div class="container">
+      <div class="col-md-3">
+        {% block column-left %}
+          {% for box in boxes.left %}
+            {% include box %}
+          {% endfor %}
+        {% endblock %}
+      </div>
+      <div class="col-md-6">
+        {% block main %}{% endblock %}
+      </div>
+      <div class="col-md-3">
+         {% block column-right %}
+          {% for box in boxes.right %}
+            {% include box %}
+          {% endfor %}
+        {% endblock %}
+      </div>
+    </div>
  
     <!-- Bootstrap core JavaScript
     ================================================== -->
