@@ -23,8 +23,9 @@ class Category(models.Model):
         # b):
         try:
             other = Category.objects.get(slug=self.slug)
-            self.slug += "_"
-            self.slug += ''.join(random.sample(string.ascii_lowercase + string.digits, 8))
+             if not (other.id is self.id):
+                self.slug += "_"
+                self.slug += ''.join(random.sample(string.ascii_lowercase + string.digits, 8))
         except self.DoesNotExist:
             pass
         super(Category, self).save()
@@ -54,11 +55,12 @@ class Article(models.Model):
         # b):
         try:
             other = Article.objects.get(slug=self.slug)
-            self.slug += "_"
-            self.slug += ''.join(random.sample(string.ascii_lowercase + string.digits, 8))
+            if not (other.id is self.id):
+                self.slug += "_"
+                self.slug += ''.join(random.sample(string.ascii_lowercase + string.digits, 8))
         except self.DoesNotExist:
             pass
 
-        super(Category, self).save()
+        super(Article, self).save()
 
 
