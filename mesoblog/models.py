@@ -23,7 +23,7 @@ class Category(models.Model):
         # b):
         try:
             other = Category.objects.get(slug=self.slug)
-             if not (other.id is self.id):
+            if not (other.id is self.id):
                 self.slug += "_"
                 self.slug += ''.join(random.sample(string.ascii_lowercase + string.digits, 8))
         except self.DoesNotExist:
