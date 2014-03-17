@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'mesolook',
     'mesoblog',
+    'mesocore',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -63,6 +64,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
     "mesobox.boxes.context_processor",
+    "mesocore.processors.settings_context_processor",
 )
 
 
@@ -94,3 +96,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Static configuration options that should be included in template contexts
+CONTEXT_ADDITIONS = {
+    'mesocore': {
+        'name': 'Mesosphere Example Site',
+    },
+}
+
+
