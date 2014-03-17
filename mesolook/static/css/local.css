@@ -1,0 +1,38 @@
+body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+header {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+footer {
+    border-top: 1px solid #e5e5e5;
+}
+
+footer p {
+    padding-top: 20px;
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+/* Make the masthead heading the same height as the navigation */
+header h3 {
+    padding-bottom: 19px;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+}
+
+.padded-above {
+    padding-top: 20px;
+}
+
+.padded-below {
+    padding-bottom: 20px;
+}
+
+.box-column {
+    padding-top: 70px;
+}

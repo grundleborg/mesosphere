@@ -2,8 +2,13 @@
 
 {% block title %}{{ article.title }}{% endblock %}
 
+{% block main-above-boxes %}
+<div class="col-md-12">
+</div>
+{% endblock %}
+
 {% block main %}
-<h1>{{ article.title }}</h1>
-<h2>{{ article.date_published }}</h2>
-<p>{{ article.contents }}</p>
+  <h1>{{ article.title }}</h1>
+  <h4 class="text-muted">{{ article.date_published }}</h4>
+  <p>{{ article.contents }}</p>
 {% endblock %}

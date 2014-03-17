@@ -101,6 +101,7 @@ STATIC_URL = '/static/'
 CONTEXT_ADDITIONS = {
     'mesocore': {
         'name': 'Mesosphere Example Site',
+        'footer_notice': '© 2014 Your Name',
     },
 }
 

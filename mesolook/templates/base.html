@@ -14,13 +14,14 @@
     <!-- Bootstrap core CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
+    <!-- Local modifications to Bootstrap CSS -->
+    <link href="{% static 'css/local.css' %}" rel="stylesheet">
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <h1>{{ mesocore.name}}</h1>
 
     {% block head %}{% endblock %}
 
@@ -29,24 +30,57 @@
   <body>
 
     <div class="container">
-      <div class="col-md-3">
-        {% block column-left %}
-          {% for box in boxes.left %}
-            {% include box %}
-          {% endfor %}
-        {% endblock %}
-      </div>
-      <div class="col-md-6">
-        {% block main %}{% endblock %}
-      </div>
-      <div class="col-md-3">
-         {% block column-right %}
-          {% for box in boxes.right %}
-            {% include box %}
-          {% endfor %}
-        {% endblock %}
-      </div>
-    </div>
+
+      <!-- Begin Header -->
+      <header>
+        {% block navbar %}{% include 'navbar.html' %}{% endblock %}
+        <h3 class="text-muted">{{ mesocore.name }}</h3>
+      </header>
+      <!-- End Header -->
+
+      <!-- Begin BreadCrumbs -->
+      <div class="row padded-above">
+        {% block breadcrumbs %}{% include 'breadcrumbs.html' %}{% endblock %}
+      </div> <!-- End Row -->
+      <!-- End Breadcrumbs -->
+
+      <!-- Begin Main Area Before Boxes -->
+      <div class="row">
+        {% block main-above-boxes %}{% endblock %}
+      </div><!-- End Row -->
+      <!-- End Main Area Before Boxes -->
+
+      <!-- Begin Main Area With Boxes -->
+      <div class="row padded-above padded-below">
+
+        <div class="col-lg-2 col-sm-3 box-column">
+          {% block column-left %}
+            {% for box in boxes.left %}
+              {% include box %}
+            {% endfor %}
+          {% endblock %}
+        </div>
+        <div class="col-lg-8 col-sm-6">
+          {% block main %}{% endblock %}
+        </div>
+        <div class="col-lg-2 col-sm-3 box-column">
+           {% block column-right %}
+            {% for box in boxes.right %}
+              {% include box %}
+            {% endfor %}
+          {% endblock %}
+        </div>
+
+      </div> <!-- End Row -->
+      <!-- End Main Area With Boxes -->
+
+      <!-- Begin Footer -->
+      <footer>
+        <p class="text-muted">{{ mesocore.footer_notice }}</p>
+      </footer>
+      <!-- End Footer -->
+
+    </div> <!-- End Container -->
  
     <!-- Bootstrap core JavaScript
     ================================================== -->
