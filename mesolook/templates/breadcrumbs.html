@@ -1,1 +1,8 @@
-<div class="col-md-12"><a href="#">Home</a> &gt; Not Yet Implemented</div>
+<div class="col-md-12">
+{% for breadcrumb in breadcrumbs %}
+  {% if breadcrumb.url %}<a href="{{ breadcrumb.url }}">{% endif %}
+  {{ breadcrumb.name }}
+  {% if breadcrumb.url %}</a>{% endif %}
+  {% if not forloop.last %}&gt;{% endif %}
+{% endfor %}
+</div>
