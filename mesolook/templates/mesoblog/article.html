@@ -10,5 +10,5 @@
 {% block main %}
   <h1>{{ article.title }}</h1>
   <h4 class="text-muted">{{ article.date_published }}</h4>
-  <p>{{ article.contents }}</p>
+  <p>{{ article.contents|safe }}</p>
 {% endblock %}
