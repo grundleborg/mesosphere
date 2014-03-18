@@ -65,6 +65,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
     "mesobox.boxes.context_processor",
     "mesocore.processors.settings_context_processor",
+    "mesocore.processors.navigation_context_processor",
 )
 
 
