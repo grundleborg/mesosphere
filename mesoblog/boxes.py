@@ -7,6 +7,10 @@ BOX_INCLUDES = (
 )
 
 def categories(request):
-    c = Category.objects.all().order_by('name')
-    return { "boxes": {"left": ['mesoblog/boxes/category-list.html',]}, "context": {"all_categories": c}}
+    result = {}
+    if request.resolver_match.app_name is "mesoblog":
+        c = Category.objects.all().order_by('name')
+        result = { "boxes": {"left": ['mesoblog/boxes/category-list.html',]}, "context": {"all_categories": c}}
+
+    return result
 
