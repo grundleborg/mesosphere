@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.forms import ModelForm
 
-from mesoblog.models import Article, Category
+from mesoblog.models import Article, Category, Comment
 
 class ArticleAdminForm(ModelForm):
     class Meta:
@@ -26,3 +26,4 @@ class CategoryAdmin(admin.ModelAdmin):
 # Register the Models
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(Comment)

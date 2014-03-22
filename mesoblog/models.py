@@ -30,6 +30,20 @@ class Category(models.Model):
             pass
         super(Category, self).save()
 
+# Represents one comment on an article
+class Comment(models.Model):
+    article = models.ForeignKey('Article')
+    parent = models.ForeignKey('Comment', related_name='children', blank=True, null=True)
+    name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
+    site = models.URLField(max_length=255)
+    posted = models.DateTimeField()
+    contents = models.TextField()
+    notify_on_reply = models.BooleanField(default=True)
+    notify_on_thread = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "Comment ["+str(self.id)+"] on Article ["+str(self.article.id)+"] by "+self.name+"."
 
 # Article model represents one article in the blog.
 class Article(models.Model):
