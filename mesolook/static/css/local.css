@@ -36,3 +36,10 @@ header h3 {
 .box-column {
     padding-top: 70px;
 }
+
+.comments {
+    margin-top: 20px;
+    border-top: 1px solid #e5e5e5;
+    padding-top: 20px;
+}
+

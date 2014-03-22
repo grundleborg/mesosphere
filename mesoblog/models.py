@@ -32,7 +32,7 @@ class Category(models.Model):
 
 # Represents one comment on an article
 class Comment(models.Model):
-    article = models.ForeignKey('Article')
+    article = models.ForeignKey('Article', related_name='comments')
     parent = models.ForeignKey('Comment', related_name='children', blank=True, null=True)
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
@@ -76,5 +76,8 @@ class Article(models.Model):
             pass
 
         super(Article, self).save()
+
+    def top_level_comments(self):
+        return self.comments.filter(parent__isnull=True)
 
 

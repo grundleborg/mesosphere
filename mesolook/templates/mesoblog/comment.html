@@ -1,0 +1,9 @@
+<li class="comment">
+  <h5><a href="{{ comment.site }}">{{ comment.name }}</a> <small>{{ comment.posted }}</small></h5>
+  <p class="comment-contents">{{ comment.contents }}</p>
+  <ul class="comment-replies">
+    {% for comment in comment.children.all %}
+      {% include "mesoblog/comment.html" %}
+    {% endfor %}
+  </ul>
+</li>
