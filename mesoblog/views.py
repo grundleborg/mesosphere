@@ -16,7 +16,7 @@ def index(request):
     ]
 
     context = RequestContext(request, {'articles': articles, 'breadcrumbs': b,})
-    return render(request, 'mesoblog/index.html', context)
+    return render(request, 'mesoblog/index.html', context_instance=context)
 
 # Article view
 def article(request, article_id):
@@ -31,8 +31,8 @@ def article(request, article_id):
         Breadcrumb(name=a.title)
     ]
 
-    context = {'article': a, 'breadcrumbs': b}
-    return render(request, 'mesoblog/article.html', context)
+    context = RequestContext(request, {'article': a, 'breadcrumbs': b})
+    return render(request, 'mesoblog/article.html', context_instance=context)
 
 # Article from Slug view
 def articleFromSlug(request, article_slug):
@@ -52,7 +52,7 @@ def category(request, category_id):
     ]
 
     context = RequestContext(request, {'articles': articles, 'breadcrumbs': b})
-    return render(request, 'mesoblog/index.html', context)
+    return render(request, 'mesoblog/index.html', context_instance=context)
 
 # Category from Slug view
 def categoryFromSlug(request, category_slug):

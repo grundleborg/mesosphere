@@ -3,3 +3,8 @@ class Breadcrumb:
         self.name=name
         if url:
             self.url=url
+
+    def __str__(self):
+        return self.name
+
+
