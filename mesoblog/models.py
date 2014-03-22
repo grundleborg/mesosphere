@@ -37,7 +37,7 @@ class Article(models.Model):
     slug = models.SlugField(max_length=255)
     contents = models.TextField()
     date_published = models.DateTimeField()
-    published = models.BooleanField()
+    published = models.BooleanField(default=False)
     primary_category = models.ForeignKey(Category, related_name='+')
     categories = models.ManyToManyField(Category)
     

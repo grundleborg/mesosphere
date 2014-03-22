@@ -6,6 +6,7 @@ from mesoblog.models import Article, Category
 class ArticleAdminForm(ModelForm):
     class Meta:
         model = Article
+        exclude = []
 
     def clean(self):
         # Make sure the primary category is included in the list of categories
