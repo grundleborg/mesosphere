@@ -2,7 +2,8 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext
 
-from mesoblog.models import Article, Category
+from mesoblog.models import Article, Category, Comment
+from mesoblog.forms import CommentForm
 from mesocore.breadcrumbs import Breadcrumb
 
 # Index view
@@ -21,6 +22,14 @@ def index(request):
 # Article view
 def article(request, article_id):
     a = get_object_or_404(Article, pk=article_id)
+ 
+    # Handle comment form submission
+    if request.method == 'POST':
+        f = CommentForm(request.POST)
+        if f.is_valid():
+            f.save()
+    else:
+        f = CommentForm(instance=Comment(article=a))
 
     # Construct Breadcrumbs
     b = [
@@ -31,7 +40,7 @@ def article(request, article_id):
         Breadcrumb(name=a.title)
     ]
 
-    context = RequestContext(request, {'article': a, 'breadcrumbs': b})
+    context = RequestContext(request, {'article': a, 'breadcrumbs': b, 'comment_form': f})
     return render(request, 'mesoblog/article.html', context_instance=context)
 
 # Article from Slug view
