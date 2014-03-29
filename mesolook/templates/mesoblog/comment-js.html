@@ -1,0 +1,6 @@
+$('#comment-reply-{{ comment.id }}').click(function() {
+  showCommentReplyField({{ comment.id }})
+});
+{% for comment in comment.children.all %}
+  {% include "mesoblog/comment-js.html" %}
+{% endfor %}

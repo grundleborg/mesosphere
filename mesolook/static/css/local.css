@@ -43,3 +43,6 @@ header h3 {
     padding-top: 20px;
 }
 
+.hidden {
+    display: none;
+}

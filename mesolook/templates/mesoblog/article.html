@@ -15,9 +15,24 @@
     {% for comment in article.top_level_comments %}
       {% include "mesoblog/comment.html" %}
     {% endfor %}
-    <form action="{% url 'articleFromSlug' article.slug %}" method="post">{% csrf_token %}
-      {{ comment_form.as_p }}
-      <input type="submit" value="Submit" />
-    </form>
-  </div>
+  </ul>
+  <form action="{% url 'articleFromSlug' article.slug %}" method="post">{% csrf_token %}
+    {{ comment_form.as_p }}
+    <input type="submit" value="Submit" />
+  </form>
+{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+
+<script>
+function showCommentReplyField(id) {
+  $('#comment-reply-container-'+id).removeClass("hidden");
+  $('#comment-reply-form-'+id+' input[name=parent]').val(id);
+}
+{% for comment in article.top_level_comments %}
+  {% include "mesoblog/comment-js.html" %}
+{% endfor %}
+</script>
+
 {% endblock %}
