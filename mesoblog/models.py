@@ -84,4 +84,13 @@ class Article(models.Model):
     def teaser(self):
         return strip_tags(self.contents[0:self.contents.find("</p>")])
 
+    def year(self):
+        return str(self.date_published.year).zfill(4)
+
+    def month(self):
+        return str(self.date_published.month).zfill(2)
+
+    def day(self):
+        return str(self.date_published.day).zfill(2)
+
 

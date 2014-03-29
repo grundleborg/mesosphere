@@ -44,7 +44,7 @@ def article(request, article_id):
     return render(request, 'mesoblog/article.html', context_instance=context)
 
 # Article from Slug view
-def articleFromSlug(request, article_slug):
+def articleFromSlug(request, article_slug, year=None, month=None, day=None):
     a = get_object_or_404(Article, slug=article_slug)
     return article(request, a.id)
 
@@ -60,8 +60,12 @@ def category(request, category_id):
         Breadcrumb(name=c.name),
     ]
 
-    context = RequestContext(request, {'articles': articles, 'breadcrumbs': b})
-    return render(request, 'mesoblog/index.html', context_instance=context)
+    context = RequestContext(request, {
+            'category': c,
+            'articles': articles,
+            'breadcrumbs': b,
+    })
+    return render(request, 'mesoblog/category.html', context_instance=context)
 
 # Category from Slug view
 def categoryFromSlug(request, category_slug):

@@ -1,7 +1,7 @@
   <ul class="article-list">
     {% for article in articles %}
       <li class="article-list-item">
-        <h3><a href="{% url 'articleFromSlug' article.slug %}">{{ article.title }}</a></h3>
+        <h3><a href="{% url 'articleLongForm' article.year article.month article.day article.slug %}">{{ article.title }}</a></h3>
         <h5 class="text-muted">{{ article.date_published }}</h5>
         <p>{{ article.teaser }}</p>
         <p><a href="{% url 'articleFromSlug' article.slug %}">Continue Reading</a></p>
