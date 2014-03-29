@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.html import strip_tags
 
 import random
 import re
@@ -79,5 +80,8 @@ class Article(models.Model):
 
     def top_level_comments(self):
         return self.comments.filter(parent__isnull=True)
+
+    def teaser(self):
+        return strip_tags(self.contents[0:self.contents.find("</p>")])
 
 
