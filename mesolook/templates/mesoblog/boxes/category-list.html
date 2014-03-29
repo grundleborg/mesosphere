@@ -3,11 +3,11 @@
 {% block box-title %}Categories{% endblock %}
 
 {% block box-content %}
-
+<div class="panel-body">
 <ul>
   {% for category in all_categories %}
     <li><a href="{% url 'categoryFromSlug' category.slug %}">{{ category.name }}</a></li>
   {% endfor %}
 </ul>
-
+</div>
 {% endblock %}

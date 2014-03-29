@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}MesoBlog Index Page{% endblock %}
+
+{% block main %}
+  <h1>Blog <span class="text-muted"><small>({{ month }})</small></span></h1>
+
+  {% include 'mesoblog/article-list.html' %}
+ 
+{% endblock %}

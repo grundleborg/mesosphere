@@ -9,5 +9,6 @@ urlpatterns = patterns('',
     url(r'^article/(?P<article_slug>[-\w]+)$', views.articleFromSlug, name='articleFromSlug'),
     url(r'^category/(?P<category_id>\d+)$', views.category, name='category'),
     url(r'^category/(?P<category_slug>[-\w]+)$', views.categoryFromSlug, name='categoryFromSlug'),
+    url(r'^archive/(?P<year>\d\d\d\d)/(?P<month>\d\d)$', views.archive, name='archive'),
 )
 

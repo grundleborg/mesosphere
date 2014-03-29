@@ -2,6 +2,9 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext
 
+import calendar
+import pytz
+
 from mesoblog.models import Article, Category, Comment
 from mesoblog.forms import CommentForm
 from mesocore.breadcrumbs import Breadcrumb
@@ -71,5 +74,24 @@ def category(request, category_id):
 def categoryFromSlug(request, category_slug):
     c = get_object_or_404(Category, slug=category_slug)
     return category(request, c.id)
+
+
+# Archive view
+def archive(request, year, month):
+    articles = Article.objects.filter(date_published__year=year,date_published__month=month).order_by('-date_published')
+
+    # Construct Breadcrumbs
+    b = [
+        Breadcrumb(name="Home"),
+        Breadcrumb(name="Blog",url=reverse('mesoblog.views.index')),
+        Breadcrumb(name=calendar.month_name[int(month)]+" "+str(year)),
+    ]
+
+    context = RequestContext(request, {
+            'month': str(calendar.month_name[int(month)]+" "+str(year)),
+            'articles': articles,
+            'breadcrumbs': b,
+    })
+    return render(request, 'mesoblog/archive.html', context_instance=context)
 
 
