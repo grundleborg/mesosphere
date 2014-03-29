@@ -59,9 +59,9 @@ def dates(request):
 
             d[a.date_published.year] = year
 
-    d = d.values()
+        d = d.values()
 
-    result = { "boxes": {"right": ['mesoblog/boxes/dates-list.html',]}, "context": {"dates": d}}
+        result = { "boxes": {"right": ['mesoblog/boxes/dates-list.html',]}, "context": {"dates": d}}
 
     return result
 
