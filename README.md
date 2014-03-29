@@ -21,6 +21,7 @@ Dependencies
 * python 3.3+
 * django 1.7+
 * django floppyforms 1.1+
+* pytz
 
 Getting Started
 ---------------
