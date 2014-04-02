@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext
@@ -30,8 +31,12 @@ def article(request, article_id):
     if request.method == 'POST':
         f = CommentForm(request.POST)
         if f.is_valid():
+            messages.add_message(request, messages.SUCCESS, 'Your comment has been posted successfully.')
             f.save()
             f = CommentForm(instance=Comment(article=a))
+        else:
+            messages.add_message(request, messages.ERROR, 'Your comment was not posted successfully.')
+
     else:
         f = CommentForm(instance=Comment(article=a))
 

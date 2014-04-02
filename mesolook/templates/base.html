@@ -44,6 +44,18 @@
       </div> <!-- End Row -->
       <!-- End Breadcrumbs -->
 
+      {% if messages %}
+      <!-- Begin Messages Area -->
+      <div class="row padded-above">
+        {% for message in messages %}
+        <div{% if message.tags %} class="{{ message.tags }} alert {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}alert.danger{% endif %}{% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}alert-warning{% endif %}{% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}alert-info{% endif %}{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}alert-success{% endif %}{% if message.level == DEFAULT_MESSAGE_LEVELS.DEBUG %}alert-info{% endif %}"{% endif %}>
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
+      <!-- End Messages Area -->
+      {% endif %}
+
       <!-- Begin Main Area Before Boxes -->
       <div class="row">
         {% block main-above-boxes %}{% endblock %}
