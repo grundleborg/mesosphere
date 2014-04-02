@@ -31,6 +31,7 @@ def article(request, article_id):
         f = CommentForm(request.POST)
         if f.is_valid():
             f.save()
+            f = CommentForm(instance=Comment(article=a))
     else:
         f = CommentForm(instance=Comment(article=a))
 
