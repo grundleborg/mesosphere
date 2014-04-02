@@ -37,8 +37,12 @@
 
 <script>
 function showCommentReplyField(id) {
-  $('#comment-reply-container-'+id).removeClass("hidden");
   $('#comment-reply-form-'+id+' input[name=parent]').val(id);
+  if ($('#comment-reply-'+id).html() === "Reply") {
+    $('#comment-reply-'+id).html("Hide Reply Form");
+  } else {
+    $('#comment-reply-'+id).html("Reply");
+  }
 }
 {% for comment in article.top_level_comments %}
   {% include "mesoblog/comment-js.html" %}
