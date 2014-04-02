@@ -23,6 +23,7 @@ Dependencies
 * django floppyforms 1.1+
 * pytz
 * django-floppyforms-bootstrap3
+* pillow
 
 Getting Started
 ---------------
