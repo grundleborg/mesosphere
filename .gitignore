@@ -4,3 +4,4 @@
 local_settings.py
 pydev/*
 *.sqlite3
+floppyforms_bootstrap3

@@ -1,13 +1,19 @@
+{% load floppyforms %}
 <li class="comment" id="comment-{{ comment.id }}">
   <h5><a href="{{ comment.site }}">{{ comment.name }}</a> <small>{{ comment.posted }}</small></h5>
   <p class="comment-contents">{{ comment.contents }}</p>
   <p class="comment-actions"><a href="" onClick="return false;" id="comment-reply-{{ comment.id }}">Reply</a></p>
   <div id="comment-reply-container-{{ comment.id }}" class="hidden">
-    <form action="{% url 'articleFromSlug' article.slug %}" method="post" id="comment-reply-form-{{ comment.id }}">{% csrf_token %}
-    {{ comment_form.as_p }}
-    <input type="submit" value="Submit" />
-  </form>
-
+    <div class="row">
+    <form class="form-horizontal" role="form" action="{% url 'articleFromSlug' article.slug %}" method="post" id="comment-reply-form-{{ comment.id }}">{% csrf_token %}
+      {% form comment_form using "floppyforms/layouts/bootstrap3-horizontal.html" %}
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-default">Post Comment</button>
+        </div>
+      </div>
+    </form>
+  </div>
   </div>
  <ul class="comment-replies">
     {% for comment in comment.children.all %}

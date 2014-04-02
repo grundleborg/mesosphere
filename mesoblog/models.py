@@ -37,10 +37,10 @@ class Comment(models.Model):
     parent = models.ForeignKey('Comment', related_name='children', blank=True, null=True)
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
-    site = models.URLField(max_length=255)
+    site = models.URLField(max_length=255, blank=True, null=True, verbose_name="Web Site")
     posted = models.DateTimeField()
-    contents = models.TextField()
-    notify_on_reply = models.BooleanField(default=True)
+    contents = models.TextField(verbose_name="Comments")
+    notify_on_reply = models.BooleanField(default=False)
     notify_on_thread = models.BooleanField(default=False)
 
     def __str__(self):

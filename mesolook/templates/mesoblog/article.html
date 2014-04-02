@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load floppyforms %}
 
 {% block title %}{{ article.title }}{% endblock %}
 
@@ -16,10 +17,19 @@
       {% include "mesoblog/comment.html" %}
     {% endfor %}
   </ul>
-  <form action="{% url 'articleFromSlug' article.slug %}" method="post">{% csrf_token %}
-    {{ comment_form.as_p }}
-    <input type="submit" value="Submit" />
-  </form>
+  <div class="main-comment-form">
+    <h4>Leave a Comment</h4>
+    <div class="row">
+    <form class="form-horizontal" role="form" action="{% url 'articleFromSlug' article.slug %}" method="post">{% csrf_token %}
+      {% form comment_form using "floppyforms/layouts/bootstrap3-horizontal.html" %}
+     <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-default">Post Comment</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  </div>
 {% endblock %}
 
 {% block javascript %}
