@@ -46,6 +46,13 @@ class Comment(models.Model):
     def __str__(self):
         return "Comment ["+str(self.id)+"] on Article ["+str(self.article.id)+"] by "+self.name+"."
 
+# Images that can be put in a blog post
+class Image(models.Model):
+    title = models.CharField(max_length=255)
+    caption = models.TextField()
+    image = models.ImageField(upload_to="media/images")
+    article = models.ForeignKey('Article', related_name='images')
+
 # Article model represents one article in the blog.
 class Article(models.Model):
     title = models.CharField(max_length=255)

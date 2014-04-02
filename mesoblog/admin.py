@@ -1,7 +1,10 @@
 from django.contrib import admin
 from django.forms import ModelForm
 
-from mesoblog.models import Article, Category, Comment
+from mesoblog.models import Article, Category, Comment, Image
+
+class ImageInline(admin.StackedInline):
+        model = Image
 
 class ArticleAdminForm(ModelForm):
     class Meta:
@@ -19,6 +22,9 @@ class ArticleAdminForm(ModelForm):
 class ArticleAdmin(admin.ModelAdmin):
     form = ArticleAdminForm
     prepopulated_fields  = {"slug": ("title",)}
+    inlines = [
+            ImageInline,
+    ]
 
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields  = {"slug": ("name",)}
