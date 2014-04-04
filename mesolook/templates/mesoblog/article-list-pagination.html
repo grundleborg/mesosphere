@@ -1,0 +1,23 @@
+  <div class="article-list-pagination">
+  <ul class="pagination">
+    {% if articles.has_previous %}
+    <li><a href="{{ urlString }}{% if urlString|slice:"-1:"|first != "/" %}/{% endif %}{{ articles.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><a href="#">&laquo;</a></li>
+    {% endif %}
+    {% for page in articles.paginator.page_range %}
+      {% if page == articles.number %}
+        <li class="active"><a href="#">{{ page }}</a></li>
+      {% else %}
+        <li><a href="{{ urlString }}{% if urlString|slice:"-1:"|first != "/" %}/{% endif %}{{ page }}">{{ page }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if articles.has_next %}
+    <li><a href="{{ urlString }}{% if urlString|slice:"-1:"|first != "/" %}/{% endif %}{{ articles.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><a href="#">&raquo;</a></li>
+    {% endif %}
+  </ul>
+  </div>
+
+

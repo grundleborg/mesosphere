@@ -6,5 +6,6 @@
   <h1>Blog</h1>
 
   {% include 'mesoblog/article-list.html' %}
- 
+  {% url 'index' as urlString %}
+  {% include 'mesoblog/article-list-pagination.html' %}
 {% endblock %}

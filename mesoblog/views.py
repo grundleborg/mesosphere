@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext
@@ -10,9 +11,21 @@ from mesoblog.models import Article, Category, Comment
 from mesoblog.forms import CommentForm
 from mesocore.breadcrumbs import Breadcrumb
 
+# Load the articles with pagination (reused in several views)
+def paginate_articles(articles, page):
+    paginator = Paginator(articles, 10)
+    try:
+        a = paginator.page(page)
+    except PageNotAnInteger:
+        a = paginator.page(1)
+    except EmptyPage:
+        a = paginator.page(paginator.num_pages)
+    return a
+
 # Index view
-def index(request):
-    articles = Article.objects.all().order_by('-date_published')[:5]
+def index(request, page=1):
+    all_articles = Article.objects.all().order_by('-date_published')
+    articles = paginate_articles(all_articles, page)
 
     # Construct Breadcrumbs
     b = [
@@ -58,9 +71,10 @@ def articleFromSlug(request, article_slug, year=None, month=None, day=None):
     return article(request, a.id)
 
 # Category view
-def category(request, category_id):
+def category(request, category_id, page=1):
     c = Category.objects.get(id=category_id)
-    articles = Article.objects.filter(categories__id__contains=category_id).order_by('-date_published')[:5]
+    all_articles = Article.objects.filter(categories__id__contains=category_id).order_by('-date_published')
+    articles = paginate_articles(all_articles, page)
 
     # Construct Breadcrumbs
     b = [
@@ -77,14 +91,15 @@ def category(request, category_id):
     return render(request, 'mesoblog/category.html', context_instance=context)
 
 # Category from Slug view
-def categoryFromSlug(request, category_slug):
+def categoryFromSlug(request, category_slug, page=1):
     c = get_object_or_404(Category, slug=category_slug)
-    return category(request, c.id)
+    return category(request, c.id, page)
 
 
 # Archive view
-def archive(request, year, month):
-    articles = Article.objects.filter(date_published__year=year,date_published__month=month).order_by('-date_published')
+def archive(request, year, month, page=1):
+    all_articles = Article.objects.filter(date_published__year=year,date_published__month=month).order_by('-date_published')
+    articles = paginate_articles(all_articles, page)
 
     # Construct Breadcrumbs
     b = [
@@ -95,6 +110,8 @@ def archive(request, year, month):
 
     context = RequestContext(request, {
             'month': str(calendar.month_name[int(month)]+" "+str(year)),
+            'monthNumber': str(int(month)).zfill(2),
+            'year': str(year),
             'articles': articles,
             'breadcrumbs': b,
     })
