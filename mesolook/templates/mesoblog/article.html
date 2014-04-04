@@ -13,6 +13,9 @@
   <h4 class="text-muted">{{ article.date_published }}</h4>
   <p>{{ article.contents|safe }}</p>
   <ul class="comments">
+    {% if article.top_level_comments.count == 0 %}
+      <h4 class="text-muted">No Comments Yet...</h4>
+    {% endif %}
     {% for comment in article.top_level_comments %}
       {% include "mesoblog/comment.html" %}
     {% endfor %}
