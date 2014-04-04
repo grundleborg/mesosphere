@@ -9,7 +9,7 @@
   <div class="collapse {% if article.date_published.year == year.year %} in{% endif %}" id="archive-year-{{ year.name }}">
     {% for month in year.months %}
     {% if month.count > 0 %}
-    <a href="{% url 'archive' year.year month.nameNumber %}" class="list-group-item">
+    <a href="{% url 'archive' year.year month.nameNumber %}" class="list-group-item {% if article.date_published.month == month.month%}active{% endif %}">
     <span class="badge">{{ month.count }}</span>
     {{ month.name }}
     </a>
