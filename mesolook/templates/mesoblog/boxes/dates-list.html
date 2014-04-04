@@ -4,12 +4,12 @@
 
 {% block box-content %}
 <div class="list-group">
-  {% for year in dates %}
-  <a href="#" class="list-group-item list-group-item-info" data-target="#archive-year-{{ year.name }}" data-toggle="collapse">{{ year.name }}</a>
-  <div class="collapse {% if article.date_published.year == year.year %} in{% endif %}" id="archive-year-{{ year.name }}">
-    {% for month in year.months %}
+  {% for y in dates %}
+  <a href="#" class="list-group-item list-group-item-info" data-target="#archive-year-{{ y.name }}" data-toggle="collapse">{{ y.name }}</a>
+  <div class="collapse {% if article.date_published.year == y.year %} in{% endif %}{% if y.name == year %} in{% endif %}" id="archive-year-{{ y.name }}">
+    {% for month in y.months %}
     {% if month.count > 0 %}
-    <a href="{% url 'archive' year.year month.nameNumber %}" class="list-group-item {% if article.date_published.month == month.month%}active{% endif %}">
+    <a href="{% url 'archive' y.year month.nameNumber %}" class="list-group-item {% if article.date_published.month == month.month%}active{% endif %}{% if monthNumber == month.nameNumber %}active{% endif %}">
     <span class="badge">{{ month.count }}</span>
     {{ month.name }}
     </a>
