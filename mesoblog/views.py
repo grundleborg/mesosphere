@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext
 
 import calendar
+import datetime
 import pytz
 
 from mesoblog.models import Article, Category, Comment
@@ -33,7 +34,7 @@ def index(request, page=1):
         Breadcrumb(name="Blog"),
     ]
 
-    context = RequestContext(request, {'articles': articles, 'breadcrumbs': b,})
+    context = RequestContext(request, {'articles': articles, 'breadcrumbs': b, 'year': str(datetime.date.today().year)})
     return render(request, 'mesoblog/index.html', context_instance=context)
 
 # Article view
@@ -87,6 +88,7 @@ def category(request, category_id, page=1):
             'category': c,
             'articles': articles,
             'breadcrumbs': b,
+            'year': str(datetime.date.today().year),
     })
     return render(request, 'mesoblog/category.html', context_instance=context)
 
