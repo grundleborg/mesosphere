@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load floppyforms %}
+{% load markdown %}
 
 {% block title %}{{ article.title }}{% endblock %}
 
@@ -11,7 +12,7 @@
 {% block main %}
   <h1>{{ article.title }}</h1>
   <h4 class="text-muted">{{ article.date_published }}</h4>
-  <p>{{ article.contents|safe }}</p>
+  <p>{{ article.contents|markdown_unsafe|safe }}</p>
   <ul class="comments">
     {% if article.top_level_comments.count == 0 %}
       <h4 class="text-muted">No Comments Yet...</h4>

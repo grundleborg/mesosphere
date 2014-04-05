@@ -24,6 +24,8 @@ Dependencies
 * pytz
 * django-floppyforms-bootstrap3
 * pillow
+* Python-Markdown 2.4+
+* markdown-urlize (from pip install git+git://github.com/grundleborg/markdown-urlize.git@rename-for-autoload )
 
 Getting Started
 ---------------
