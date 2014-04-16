@@ -89,7 +89,7 @@ class Article(models.Model):
         return self.comments.filter(parent__isnull=True)
 
     def teaser(self):
-        return strip_tags(self.contents[0:self.contents.find("</p>")])
+        return strip_tags(self.contents[0:self.contents.find("\n")])
 
     def year(self):
         return str(self.date_published.year).zfill(4)
