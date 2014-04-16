@@ -11,6 +11,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls, app_name='admin')),
     url(r'^blog/', include('mesoblog.urls', app_name='mesoblog')),
+    url(r'^$', include ('mesohome.urls', app_name='mesohome')),
 ) + static("media/", document_root="media/")
 
 

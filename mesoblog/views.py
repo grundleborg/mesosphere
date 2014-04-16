@@ -30,7 +30,7 @@ def index(request, page=1):
 
     # Construct Breadcrumbs
     b = [
-        Breadcrumb(name="Home"),
+        Breadcrumb(name="Home",url=reverse('mesohome.views.index')),
         Breadcrumb(name="Blog"),
     ]
 
@@ -56,7 +56,7 @@ def article(request, article_id):
 
     # Construct Breadcrumbs
     b = [
-        Breadcrumb(name="Home"),
+        Breadcrumb(name="Home",url=reverse('mesohome.views.index')),
         Breadcrumb(name="Blog",url=reverse('mesoblog.views.index')),
         Breadcrumb(name=a.primary_category.name,url=reverse('mesoblog.views.categoryFromSlug',
             args=(a.primary_category.slug,))),
@@ -79,7 +79,7 @@ def category(request, category_id, page=1):
 
     # Construct Breadcrumbs
     b = [
-        Breadcrumb(name="Home"),
+        Breadcrumb(name="Home",url=reverse('mesohome.views.index')),
         Breadcrumb(name="Blog",url=reverse('mesoblog.views.index')),
         Breadcrumb(name=c.name),
     ]
@@ -105,7 +105,7 @@ def archive(request, year, month, page=1):
 
     # Construct Breadcrumbs
     b = [
-        Breadcrumb(name="Home"),
+        Breadcrumb(name="Home",url=reverse('mesohome.views.index')),
         Breadcrumb(name="Blog",url=reverse('mesoblog.views.index')),
         Breadcrumb(name=calendar.month_name[int(month)]+" "+str(year)),
     ]

@@ -13,7 +13,7 @@ class NavItem:
 def navigation_context_processor(request):
     
     return {'nav': [
-        NavItem("Home","",False),
+        NavItem("Home",reverse('mesohome.views.index'),True if request.resolver_match.app_name is "mesohome" else False),
         NavItem("Blog",reverse('mesoblog.views.index'),True if request.resolver_match.app_name is "mesoblog" else False),
     ]}
 

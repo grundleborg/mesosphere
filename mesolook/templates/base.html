@@ -37,12 +37,14 @@
         <h3 class="text-muted">{{ mesocore.name }}</h3>
       </header>
       <!-- End Header -->
-
+      
+      {% if breadcrumbs %}
       <!-- Begin BreadCrumbs -->
       <div class="row padded-above">
         {% block breadcrumbs %}{% include 'breadcrumbs.html' %}{% endblock %}
       </div> <!-- End Row -->
       <!-- End Breadcrumbs -->
+      {% endif %}
 
       {% if messages %}
       <!-- Begin Messages Area -->
@@ -56,6 +58,7 @@
       <!-- End Messages Area -->
       {% endif %}
 
+      {% block outermain %}
       <!-- Begin Main Area Before Boxes -->
       <div class="row">
         {% block main-above-boxes %}{% endblock %}
@@ -85,6 +88,7 @@
 
       </div> <!-- End Row -->
       <!-- End Main Area With Boxes -->
+      {% endblock %}
 
       <!-- Begin Footer -->
       <footer>

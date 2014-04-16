@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'mesolook',
     'mesoblog',
     'mesocore',
+    'mesohome',
 )
 
 MIDDLEWARE_CLASSES = (
