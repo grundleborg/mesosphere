@@ -26,6 +26,7 @@ Dependencies
 * pillow
 * Python-Markdown 2.4+
 * markdown-urlize (from pip install git+git://github.com/grundleborg/markdown-urlize.git@rename-for-autoload )
+* pykismet3
 
 Getting Started
 ---------------
