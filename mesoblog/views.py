@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
@@ -7,6 +8,9 @@ from django.template import RequestContext
 import calendar
 import datetime
 import pytz
+import os
+
+from pykismet3 import Akismet
 
 from mesoblog.models import Article, Category, Comment
 from mesoblog.forms import CommentForm
@@ -45,8 +49,19 @@ def article(request, article_id):
     if request.method == 'POST':
         f = CommentForm(request.POST)
         if f.is_valid():
+            ak = Akismet(blog_url=request.get_host(), api_key=settings.AKISMET_API_KEY, user_agent="Mesosphere/0.0.1")
+            comment = f.save(commit=False)
+            comment.is_spam = ak.check({'user_ip': request.META['HTTP_USER_AGENT'],
+                                        'user_agent': request.META['HTTP_REFERER'],
+                                        'referrer': request.META['HTTP_REFERER'],
+                                        'comment_content': f.cleaned_data['contents'],
+                                        'comment_author': f.cleaned_data['name'],
+                                        'is-test': 1,
+                                       })
+
+            comment.save()
+
             messages.add_message(request, messages.SUCCESS, 'Your comment has been posted successfully.')
-            f.save()
             f = CommentForm(instance=Comment(article=a))
         else:
             messages.add_message(request, messages.ERROR, 'Your comment was not posted successfully.')

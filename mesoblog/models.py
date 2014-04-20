@@ -42,6 +42,7 @@ class Comment(models.Model):
     contents = models.TextField(verbose_name="Comments")
     notify_on_reply = models.BooleanField(default=False)
     notify_on_thread = models.BooleanField(default=False)
+    is_spam = models.BooleanField(default=False)
 
     def __str__(self):
         return "Comment ["+str(self.id)+"] on Article ["+str(self.article.id)+"] by "+self.name+"."
