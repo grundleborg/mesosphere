@@ -6,3 +6,4 @@ pydev/*
 *.sqlite3
 floppyforms_bootstrap3
 media/
+mesosphere/local_settings.py

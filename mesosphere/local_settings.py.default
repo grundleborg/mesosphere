@@ -1,0 +1,7 @@
+# Local Settings.
+# Override settings from settings.py here.
+
+# Your AKISMET api key.
+AKISMET_API_KEY = ""
+
+

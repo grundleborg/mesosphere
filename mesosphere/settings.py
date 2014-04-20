@@ -111,4 +111,8 @@ CONTEXT_ADDITIONS = {
     },
 }
 
-
+# Pull in local settings file
+try:
+    from local_settings import *
+except:
+    pass
