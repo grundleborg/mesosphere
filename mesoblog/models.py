@@ -43,6 +43,9 @@ class Comment(models.Model):
     notify_on_reply = models.BooleanField(default=False)
     notify_on_thread = models.BooleanField(default=False)
     is_spam = models.BooleanField(default=False)
+    user_ip = models.CharField(max_length=100, default="")
+    user_agent = models.CharField(max_length=255, default="")
+    referer = models.CharField(max_length=255, default="")
 
     def __str__(self):
         return "Comment ["+str(self.id)+"] on Article ["+str(self.article.id)+"] by "+self.name+"."

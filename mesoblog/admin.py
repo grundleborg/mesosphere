@@ -1,5 +1,8 @@
+from django.conf import settings
 from django.contrib import admin
 from django.forms import ModelForm
+
+from pykismet3 import Akismet
 
 from mesoblog.models import Article, Category, Comment, Image
 
@@ -29,7 +32,58 @@ class ArticleAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields  = {"slug": ("name",)}
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'is_spam']
+    actions = ['mark_as_spam', 'mark_as_ham']
+
+    def mark_as_spam(self, request, queryset):
+        ak = Akismet(blog_url=request.get_host(),
+                     api_key=settings.AKISMET_API_KEY,
+                     user_agent="Mesosphere/0.0.1")
+        for comment in queryset:
+            ak.submit_spam({'user_ip': comment.user_ip,
+                            'user_agent': comment.user_agent,
+                            'referrer': comment.referer,
+                            'comment_content': comment.contents,
+                            'comment_author': comment.name,
+                            'is_test': 1,
+                            })
+            comment.delete()
+  
+        if len(queryset) == 1:
+            message_bit = "1 comment was"
+        else:
+            message_bit = "%s comments were" % len(queryset)
+        
+        self.message_user (request, "%s sucessfully marked as spam and deleted." % message_bit)
+
+    mark_as_spam.short_description = "Mark Comments as Spam & Delete"
+
+    def mark_as_ham(self, request, queryset):
+        ak = Akismet(blog_url=request.get_host(),
+                     api_key=settings.AKISMET_API_KEY,
+                     user_agent="Mesosphere/0.0.1")
+        for comment in queryset:
+            ak.submit_ham({'user_ip': comment.user_ip,
+                            'user_agent': comment.user_agent,
+                            'referrer': comment.referer,
+                            'comment_content': comment.contents,
+                            'comment_author': comment.name,
+                            'is_test': 1,
+                            })
+            comment.is_spam = False;
+            comment.save()
+
+        if len(queryset) == 1:
+            message_bit = "1 comment was"
+        else:
+            message_bit = "%s comments were" % len(queryset)
+        
+        self.message_user (request, "%s sucessfully marked as ham." % message_bit)
+ 
+    mark_as_ham.short_description = "Mark Comments as Ham"
+
 # Register the Models
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Comment)
+admin.site.register(Comment, CommentAdmin)
