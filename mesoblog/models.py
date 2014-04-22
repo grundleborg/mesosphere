@@ -87,7 +87,7 @@ class Article(models.Model):
         super(Article, self).save()
 
     def top_level_comments(self):
-        return self.comments.filter(parent__isnull=True)
+        return self.comments.filter(parent__isnull=True, is_spam=False)
 
     def teaser(self):
         return strip_tags(self.contents[0:self.contents.find("\n")])

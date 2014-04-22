@@ -18,7 +18,9 @@
   </div>
  <ul class="comment-replies">
     {% for comment in comment.children.all %}
-      {% include "mesoblog/comment.html" %}
+      {% if comment.is_spam == False %}
+        {% include "mesoblog/comment.html" %}
+      {% endif %}
     {% endfor %}
   </ul>
 </li>
