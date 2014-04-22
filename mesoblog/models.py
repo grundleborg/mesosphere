@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.html import strip_tags
 
+from taggit.managers import TaggableManager
+
 import random
 import re
 import string
@@ -66,6 +68,7 @@ class Article(models.Model):
     published = models.BooleanField(default=False)
     primary_category = models.ForeignKey(Category, related_name='+')
     categories = models.ManyToManyField(Category)
+    tags = TaggableManager()
     
     def __str__(self):
         return self.title+" ["+str(self.id)+"]"

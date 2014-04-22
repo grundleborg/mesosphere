@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'floppyforms_bootstrap3',
     'floppyforms',
+    'taggit',
     'mesolook',
     'mesoblog',
     'mesocore',
