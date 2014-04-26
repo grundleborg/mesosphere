@@ -6,10 +6,11 @@
 <div class="list-group">
   {% for y in archive_dates %}
   <a href="#" class="list-group-item list-group-item-info" data-target="#archive-year-{{ y.name }}" data-toggle="collapse">{{ y.name }}</a>
-  <div class="collapse {% if article.date_published.year == y.year %} in{% elif y.name == archive_year %} in{% elif y.name == archive_current_year %} in{% endif %}" id="archive-year-{{ y.name }}">
+  <div class="collapse {% if article.date_published.year == y.year %} in{% elif y.name == archive_year %} in{% elif not article and not archive_year and y.name == archive_current_year %} in{% endif %}" id="archive-year-{{ y.name }}">
     {% for month in y.months %}
     {% if month.count > 0 %}
-    <a href="{% url 'archive' y.year month.nameNumber %}" class="list-group-item {% if article.date_published.year == y.year and article.date_published.month == month.month %}active{% elif archive_year == y.name and archive_month == month.nameNumber %}active{% endif %}">
+    <a href="{% url 'archive' y.year month.nameNumber %}" class="list-group-item">
+      {% if article.date_published.year == y.year and article.date_published.month == month.month %}<span class="glyphicon glyphicon-arrow-right"></span>{% elif archive_year == y.name and archive_month == month.nameNumber %}<span class="glyphicon glyphicon-arrow-right"></span>{% endif %}
     <span class="badge">{{ month.count }}</span>
     {{ month.name }}
     </a>
