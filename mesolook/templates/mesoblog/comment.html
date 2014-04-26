@@ -1,7 +1,7 @@
 {% load floppyforms %}
 {% load markdown %}
 <li class="comment" id="comment-{{ comment.id }}">
-  <h5><a href="{{ comment.site }}">{{ comment.name }}</a> <small>{{ comment.posted }}</small></h5>
+<h5>{% if comment.site %}<a href="{{ comment.site }}">{% endif %}{{ comment.name }}{% if comment.site %}</a>{% endif %} <small>{{ comment.posted }}</small></h5>
   <p class="comment-contents">{{ comment.contents|markdown_safe }}</p>
   <p class="comment-actions"><a href="#" onClick="return false;" id="comment-reply-{{ comment.id }}" data-target="#comment-reply-container-{{ comment.id }}" data-toggle="collapse">Reply</a></p>
   <div id="comment-reply-container-{{ comment.id }}" class="collapse">
