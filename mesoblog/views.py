@@ -92,7 +92,7 @@ def articleFromSlug(request, article_slug, year=None, month=None, day=None):
 # Category view
 def category(request, category_id, page=1):
     c = Category.objects.get(id=category_id)
-    all_articles = Article.objects.filter(categories__id__contains=category_id).order_by('-date_published')
+    all_articles = Article.objects.filter(categories__id=category_id).order_by('-date_published')
     articles = paginate_articles(all_articles, page)
 
     # Construct Breadcrumbs
