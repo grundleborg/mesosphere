@@ -49,6 +49,9 @@ class Comment(models.Model):
     user_agent = models.CharField(max_length=255, default="")
     referer = models.CharField(max_length=255, default="")
 
+    class Meta:
+        ordering = ['posted']
+
     def __str__(self):
         return "Comment ["+str(self.id)+"] on Article ["+str(self.article.id)+"] by "+self.name+"."
 
@@ -69,6 +72,9 @@ class Article(models.Model):
     primary_category = models.ForeignKey(Category, related_name='+')
     categories = models.ManyToManyField(Category, blank=True)
     tags = TaggableManager()
+
+    class Meta:
+        ordering = ['-date_published']
     
     def __str__(self):
         return self.title+" ["+str(self.id)+"]"
