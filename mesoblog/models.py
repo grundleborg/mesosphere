@@ -71,7 +71,7 @@ class Article(models.Model):
     published = models.BooleanField(default=False)
     primary_category = models.ForeignKey(Category, related_name='+')
     categories = models.ManyToManyField(Category, blank=True)
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     class Meta:
         ordering = ['-date_published']
