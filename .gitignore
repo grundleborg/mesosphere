@@ -7,3 +7,4 @@ pydev/*
 floppyforms_bootstrap3
 media/
 mesosphere/settings.py
+node_modules
