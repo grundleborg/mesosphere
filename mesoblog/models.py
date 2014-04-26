@@ -45,9 +45,9 @@ class Comment(models.Model):
     notify_on_reply = models.BooleanField(default=False)
     notify_on_thread = models.BooleanField(default=False)
     is_spam = models.BooleanField(default=False)
-    user_ip = models.CharField(max_length=100, default="")
-    user_agent = models.CharField(max_length=255, default="")
-    referer = models.CharField(max_length=255, default="")
+    user_ip = models.CharField(max_length=100, default="", blank=True)
+    user_agent = models.CharField(max_length=255, default="", blank=True)
+    referer = models.CharField(max_length=255, default="", blank=True)
 
     class Meta:
         ordering = ['posted']
