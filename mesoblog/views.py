@@ -130,8 +130,8 @@ def archive(request, year, month, page=1):
 
     context = RequestContext(request, {
             'month': str(calendar.month_name[int(month)]+" "+str(year)),
-            'monthNumber': str(int(month)).zfill(2),
-            'year': str(year),
+            'archive_month': str(int(month)).zfill(2),
+            'archive_year': str(year),
             'articles': articles,
             'breadcrumbs': b,
     })

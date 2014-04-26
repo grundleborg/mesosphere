@@ -2,12 +2,14 @@
 # See mesobox/boxes.py for the enabling code.
 from mesoblog.models import Article, Category
 
+from datetime import date
+
 import calendar
 import functools
 
 BOX_INCLUDES = (
         'categories',
-        'dates',
+        'archive',
 )
 
 def categories(request):
@@ -46,7 +48,7 @@ class ArchiveYear:
         else:
             return False
 
-def dates(request):
+def archive(request):
     result = {}
     if request.resolver_match.app_name is "mesoblog":
         articles = Article.objects.all()
@@ -68,7 +70,11 @@ def dates(request):
 
         d = sorted(d.values(), reverse=True)
 
-        result = { "boxes": {"right": ['mesoblog/boxes/dates-list.html',]}, "context": {"dates": d}}
+        result = { "boxes": {"right": ['mesoblog/boxes/archive-list.html',]},
+                   "context": {"archive_dates": d,
+                               "archive_current_year": str(date.today().year),
+                              }
+                 }
 
     return result
 
