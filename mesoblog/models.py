@@ -67,7 +67,7 @@ class Article(models.Model):
     date_published = models.DateTimeField()
     published = models.BooleanField(default=False)
     primary_category = models.ForeignKey(Category, related_name='+')
-    categories = models.ManyToManyField(Category)
+    categories = models.ManyToManyField(Category, blank=True)
     tags = TaggableManager()
     
     def __str__(self):
