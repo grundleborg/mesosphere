@@ -9,7 +9,7 @@ register = template.Library()
 @register.filter(is_safe=True)
 @stringfilter
 def markdown_safe(value):
-    extensions = ["nl2br", "urlize",]
+    extensions = ["nl2br", "urlize", "fenced_code", "codehilite",]
 
     return mark_safe(markdown.markdown(value,
                                        extensions,
@@ -19,7 +19,7 @@ def markdown_safe(value):
 @register.filter(is_safe=False)
 @stringfilter
 def markdown_unsafe(value):
-    extensions = ["nl2br", "urlize",]
+    extensions = ["nl2br", "urlize", "fenced_code", "codehilite",]
 
     return markdown.markdown(value,
                             extensions,
