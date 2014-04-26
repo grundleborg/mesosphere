@@ -9,7 +9,7 @@
   <div class="collapse {% if article.date_published.year == y.year %} in{% elif y.name == archive_year %} in{% elif not article and not archive_year and y.name == archive_current_year %} in{% endif %}" id="archive-year-{{ y.name }}">
     {% for month in y.months %}
     {% if month.count > 0 %}
-    <a href="{% url 'archive' y.year month.nameNumber %}" class="list-group-item">
+    <a href="{% url 'mesoblog.archive' y.year month.nameNumber %}" class="list-group-item">
       {% if article.date_published.year == y.year and article.date_published.month == month.month %}<span class="glyphicon glyphicon-arrow-right"></span>{% elif archive_year == y.name and archive_month == month.nameNumber %}<span class="glyphicon glyphicon-arrow-right"></span>{% endif %}
     <span class="badge">{{ month.count }}</span>
     {{ month.name }}

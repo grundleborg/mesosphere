@@ -6,7 +6,7 @@
 <div class="panel-body">
 <ul>
   {% for category in all_categories %}
-    <li><a href="{% url 'categoryFromSlug' category.slug %}">{{ category.name }}</a></li>
+    <li><a href="{% url 'mesoblog.categoryFromSlug' category.slug %}">{{ category.name }}</a></li>
   {% endfor %}
 </ul>
 </div>

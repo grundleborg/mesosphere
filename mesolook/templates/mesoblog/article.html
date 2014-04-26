@@ -24,7 +24,7 @@
   <div class="main-comment-form">
     <h4>Leave a Comment</h4>
     <div class="row">
-    <form class="form-horizontal" role="form" action="{% url 'articleFromSlug' article.slug %}" method="post">{% csrf_token %}
+    <form class="form-horizontal" role="form" action="{% url 'mesoblog.articleFromSlug' article.slug %}" method="post">{% csrf_token %}
       {% form comment_form using "floppyforms/layouts/bootstrap3-horizontal.html" %}
      <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">

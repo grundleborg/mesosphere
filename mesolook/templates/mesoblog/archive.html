@@ -6,7 +6,7 @@
   <h1>Blog <span class="text-muted"><small>({{ month }})</small></span></h1>
 
   {% include 'mesoblog/article-list.html' %}
-  {% url 'archive' year monthNumber as urlString %}
+  {% url 'mesoblog.archive' year monthNumber as urlString %}
   {% include 'mesoblog/article-list-pagination.html' %}
  
 {% endblock %}

@@ -6,7 +6,7 @@
   <p class="comment-actions"><a href="#" onClick="return false;" id="comment-reply-{{ comment.id }}" data-target="#comment-reply-container-{{ comment.id }}" data-toggle="collapse">Reply</a></p>
   <div id="comment-reply-container-{{ comment.id }}" class="collapse">
     <div class="row">
-    <form class="form-horizontal" role="form" action="{% url 'articleFromSlug' article.slug %}" method="post" id="comment-reply-form-{{ comment.id }}">{% csrf_token %}
+    <form class="form-horizontal" role="form" action="{% url 'mesoblog.articleFromSlug' article.slug %}" method="post" id="comment-reply-form-{{ comment.id }}">{% csrf_token %}
       {% form comment_form using "floppyforms/layouts/bootstrap3-horizontal.html" %}
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
