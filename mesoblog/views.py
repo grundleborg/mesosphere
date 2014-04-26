@@ -51,13 +51,15 @@ def article(request, article_id):
         if f.is_valid():
             ak = Akismet(blog_url=request.get_host(), api_key=settings.AKISMET_API_KEY, user_agent="Mesosphere/0.0.1")
             comment = f.save(commit=False)
-            comment.is_spam = ak.check({'user_ip': request.META['REMOTE_ADDR'],
-                                        'user_agent': request.META['HTTP_USER_AGENT'],
-                                        'referrer': request.META['HTTP_REFERER'],
-                                        'comment_content': f.cleaned_data['contents'],
-                                        'comment_author': f.cleaned_data['name'],
-                                        'is-test': 1,
-                                       })
+            ak_dict = {'user_ip': request.META['REMOTE_ADDR'],
+                       'user_agent': request.META['HTTP_USER_AGENT'],
+                       'referrer': request.META['HTTP_REFERER'],
+                       'comment_content': f.cleaned_data['contents'],
+                       'comment_author': f.cleaned_data['name'],
+                      }
+            if settings.DEBUG is True:
+                ak_dict['is_test'] = 1
+            comment.is_spam = ak.check(ak_dict)
             comment.user_ip = request.META['REMOTE_ADDR']
             comment.user_agent = request.META['HTTP_USER_AGENT']
             comment.referer = request.META['HTTP_REFERER']

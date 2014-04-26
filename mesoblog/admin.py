@@ -41,13 +41,15 @@ class CommentAdmin(admin.ModelAdmin):
                      api_key=settings.AKISMET_API_KEY,
                      user_agent="Mesosphere/0.0.1")
         for comment in queryset:
-            ak.submit_spam({'user_ip': comment.user_ip,
-                            'user_agent': comment.user_agent,
-                            'referrer': comment.referer,
-                            'comment_content': comment.contents,
-                            'comment_author': comment.name,
-                            'is_test': 1,
-                            })
+            ak_dict = {'user_ip': comment.user_ip,
+                       'user_agent': comment.user_agent,
+                       'referrer': comment.referer,
+                       'comment_content': comment.contents,
+                       'comment_author': comment.name,
+                      }
+            if settings.DEBUG is True:
+                ak_dict['is_test'] = 1
+            ak.submit_spam(ak_dict)
             comment.delete()
   
         if len(queryset) == 1:
@@ -64,13 +66,15 @@ class CommentAdmin(admin.ModelAdmin):
                      api_key=settings.AKISMET_API_KEY,
                      user_agent="Mesosphere/0.0.1")
         for comment in queryset:
-            ak.submit_ham({'user_ip': comment.user_ip,
-                            'user_agent': comment.user_agent,
-                            'referrer': comment.referer,
-                            'comment_content': comment.contents,
-                            'comment_author': comment.name,
-                            'is_test': 1,
-                            })
+            ak_dict = {'user_ip': comment.user_ip,
+                       'user_agent': comment.user_agent,
+                       'referrer': comment.referer,
+                       'comment_content': comment.contents,
+                       'comment_author': comment.name,
+                      }
+            if settings.DEBUG is True:
+                ak_dict['is_test'] = 1
+            ak.submit_ham(ak_dict)
             comment.is_spam = False;
             comment.save()
 
