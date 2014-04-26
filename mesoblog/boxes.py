@@ -3,6 +3,7 @@
 from mesoblog.models import Article, Category
 
 import calendar
+import functools
 
 BOX_INCLUDES = (
         'categories',
@@ -27,6 +28,7 @@ class ArchiveMonth:
     def inc(self):
         self.count = self.count + 1
 
+@functools.total_ordering
 class ArchiveYear:
     def __init__(self, year):
         self.year = year
@@ -38,11 +40,16 @@ class ArchiveYear:
     def __eq__(self, other):
         return self.year == other
 
+    def __lt__(self, other):
+        if self.year < other.year:
+            return True
+        else:
+            return False
+
 def dates(request):
     result = {}
     if request.resolver_match.app_name is "mesoblog":
-        articles = Article.objects.all().order_by("-date_published")
-
+        articles = Article.objects.all()
         d = {}
         for a in articles:
             year = None
@@ -59,7 +66,7 @@ def dates(request):
 
             d[a.date_published.year] = year
 
-        d = d.values()
+        d = sorted(d.values(), reverse=True)
 
         result = { "boxes": {"right": ['mesoblog/boxes/dates-list.html',]}, "context": {"dates": d}}
 
