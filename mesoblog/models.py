@@ -96,7 +96,13 @@ class Article(models.Model):
         return self.comments.filter(parent__isnull=True, is_spam=False)
 
     def teaser(self):
-        return strip_tags(self.contents[0:self.contents.find("\n")])
+        output = ""
+        for line in self.contents.split('\n'):
+            if line.strip():
+                output = output + '\n' + line
+            else:
+                break
+        return output
 
     def year(self):
         return str(self.date_published.year).zfill(4)
