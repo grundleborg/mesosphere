@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}MesoBlog Index Page{% endblock %}
+{% block title %}{{ category.name }} | Blog | {{ mesocore.name }}{% endblock %}
 
 {% block main %}
   <h1>Blog <span class="text-muted"><small>(Category: {{ category.name }})</small></span></h1>
