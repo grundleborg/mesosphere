@@ -103,11 +103,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
+# Some parameters used around the site.
+SITE_TITLE = "Mesosphere Example Site"
+SITE_DESCRIPTION = "The example site for a fresh Mesosphere install."
 
 # Static configuration options that should be included in template contexts
 CONTEXT_ADDITIONS = {
     'mesocore': {
-        'name': 'Mesosphere Example Site',
+        'name': SITE_TITLE,
         'footer_notice': '© 2014 Your Name',
     },
 }
