@@ -8,7 +8,7 @@ from mesocore.breadcrumbs import Breadcrumb
 # Create your views here.
 
 def index(request):
-    all_articles = Article.objects.all().order_by('-date_published')[:3]
+    all_articles = Article.objects.filter(published=True).order_by('-date_published')[:3]
  
     # Construct Breadcrumbs
     context = RequestContext(request, { 'articles': all_articles,})

@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext
 
@@ -29,7 +30,7 @@ def paginate_articles(articles, page):
 
 # Index view
 def index(request, page=1):
-    all_articles = Article.objects.all().order_by('-date_published')
+    all_articles = Article.objects.filter(published=True).order_by('-date_published')
     articles = paginate_articles(all_articles, page)
 
     # Construct Breadcrumbs
@@ -44,6 +45,11 @@ def index(request, page=1):
 # Article view
 def article(request, article_id):
     a = get_object_or_404(Article, pk=article_id)
+
+    # Check if the article is unpublished, and only show it to people with required permissions if
+    # this turns out to be the case.
+    if not a.published and not request.user.has_perm('mesoblog.change_article'):
+        return HttpResponseForbidden()
  
     # Handle comment form submission
     if request.method == 'POST':
@@ -94,7 +100,7 @@ def articleFromSlug(request, article_slug, year=None, month=None, day=None):
 # Category view
 def category(request, category_id, page=1):
     c = Category.objects.get(id=category_id)
-    all_articles = Article.objects.filter(categories__id=category_id).order_by('-date_published')
+    all_articles = Article.objects.filter(categories__id=category_id,published=True).order_by('-date_published')
     articles = paginate_articles(all_articles, page)
 
     # Construct Breadcrumbs
@@ -120,7 +126,7 @@ def categoryFromSlug(request, category_slug, page=1):
 
 # Archive view
 def archive(request, year, month, page=1):
-    all_articles = Article.objects.filter(date_published__year=year,date_published__month=month).order_by('-date_published')
+    all_articles = Article.objects.filter(date_published__year=year,date_published__month=month,published=True).order_by('-date_published')
     articles = paginate_articles(all_articles, page)
 
     # Construct Breadcrumbs

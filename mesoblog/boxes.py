@@ -51,7 +51,7 @@ class ArchiveYear:
 def archive(request):
     result = {}
     if request.resolver_match.app_name is "mesoblog":
-        articles = Article.objects.all()
+        articles = Article.objects.filter(published=True)
         d = {}
         for a in articles:
             year = None
