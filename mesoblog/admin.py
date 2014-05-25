@@ -28,6 +28,7 @@ class ArticleAdmin(admin.ModelAdmin):
     inlines = [
             ImageInline,
     ]
+    list_display = ['__str__', 'slug', 'published']
 
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields  = {"slug": ("name",)}
