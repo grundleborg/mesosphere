@@ -34,8 +34,10 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields  = {"slug": ("name",)}
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'is_spam']
+    list_display = ['__str__', 'teaser', 'is_spam']
     actions = ['mark_as_spam', 'mark_as_ham']
+
+    ordering = ['-id']
 
     def mark_as_spam(self, request, queryset):
         ak = Akismet(blog_url=request.get_host(),

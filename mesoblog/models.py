@@ -55,6 +55,9 @@ class Comment(models.Model):
     def __str__(self):
         return "Comment ["+str(self.id)+"] on Article ["+str(self.article.id)+"] by "+self.name+"."
 
+    def teaser(self):
+        return self.contents[0:200]
+
 # Images that can be put in a blog post
 class Image(models.Model):
     title = models.CharField(max_length=255)
