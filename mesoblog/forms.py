@@ -1,6 +1,6 @@
 import floppyforms.__future__ as forms
 
-from datetime import datetime
+from django.utils import timezone
 
 from mesoblog.models import Article, Comment
 
@@ -25,7 +25,7 @@ class CommentForm(forms.ModelForm):
     
     def save(self, commit=True):
         i = super(CommentForm, self).save(commit=False)
-        i.posted = datetime.now()
+        i.posted = timezone.now()
         i.save()
         return i
 
