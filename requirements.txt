@@ -1,0 +1,10 @@
+django>=1.7.4
+django-floppyforms
+pytz
+pykismet3
+pillow
+markdown
+-e git+git://github.com/grundleborg/markdown-urlize.git@dev#egg=markdown-urlize
+django-taggit
+-e git+https://github.com/grundleborg/django-floppyforms-bootstrap3@master#egg=django-floppyforms-bootstrap3
+
