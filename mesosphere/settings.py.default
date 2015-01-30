@@ -115,4 +115,7 @@ CONTEXT_ADDITIONS = {
     },
 }
 
-
+# Module Configuration
+mesoblog = {
+        "close_comments_days": 90,   # Number of days after which to close comments on articles.
+}

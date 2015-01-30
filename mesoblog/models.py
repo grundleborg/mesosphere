@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.db import models
+from django.utils import timezone
 from django.utils.html import strip_tags
 
 from taggit.managers import TaggableManager
@@ -6,6 +8,8 @@ from taggit.managers import TaggableManager
 import random
 import re
 import string
+
+from datetime import timedelta
 
 # Represents a category which articles can be part of
 class Category(models.Model):
@@ -121,5 +125,10 @@ class Article(models.Model):
 
     def day(self):
         return str(self.date_published.day).zfill(2)
+
+    def comments_open(self):
+        if (timezone.now() - self.date_published) > timedelta(days=settings.MESOBLOG["close_comments_days"]):
+            return False
+        return True
 
 

@@ -53,29 +53,32 @@ def article(request, article_id):
  
     # Handle comment form submission
     if request.method == 'POST':
-        f = CommentForm(request.POST)
-        if f.is_valid():
-            ak = Akismet(blog_url=request.get_host(), api_key=settings.AKISMET_API_KEY, user_agent="Mesosphere/0.0.1")
-            comment = f.save(commit=False)
-            ak_dict = {'user_ip': request.META['REMOTE_ADDR'],
-                       'user_agent': request.META['HTTP_USER_AGENT'],
-                       'referrer': request.META['HTTP_REFERER'],
-                       'comment_content': f.cleaned_data['contents'],
-                       'comment_author': f.cleaned_data['name'],
-                      }
-            if settings.DEBUG is True:
-                ak_dict['is_test'] = 1
-            comment.is_spam = ak.check(ak_dict)
-            comment.user_ip = request.META['REMOTE_ADDR']
-            comment.user_agent = request.META['HTTP_USER_AGENT']
-            comment.referer = request.META['HTTP_REFERER']
-
-            comment.save()
-
-            messages.add_message(request, messages.SUCCESS, 'Your comment has been posted successfully.')
-            f = CommentForm(instance=Comment(article=a))
+        if a.comments_open() is not True:
+            messages.add_message(request, messages.ERROR, "Comments are now closed on this article.")
         else:
-            messages.add_message(request, messages.ERROR, 'Your comment was not posted successfully.')
+            f = CommentForm(request.POST)
+            if f.is_valid():
+                ak = Akismet(blog_url=request.get_host(), api_key=settings.AKISMET_API_KEY, user_agent="Mesosphere/0.0.1")
+                comment = f.save(commit=False)
+                ak_dict = {'user_ip': request.META['REMOTE_ADDR'],
+                           'user_agent': request.META['HTTP_USER_AGENT'],
+                           'referrer': request.META['HTTP_REFERER'],
+                           'comment_content': f.cleaned_data['contents'],
+                           'comment_author': f.cleaned_data['name'],
+                          }
+                if settings.DEBUG is True:
+                    ak_dict['is_test'] = 1
+                comment.is_spam = ak.check(ak_dict)
+                comment.user_ip = request.META['REMOTE_ADDR']
+                comment.user_agent = request.META['HTTP_USER_AGENT']
+                comment.referer = request.META['HTTP_REFERER']
+
+                comment.save()
+
+                messages.add_message(request, messages.SUCCESS, 'Your comment has been posted successfully.')
+                f = CommentForm(instance=Comment(article=a))
+            else:
+                messages.add_message(request, messages.ERROR, 'Your comment was not posted successfully.')
 
     else:
         f = CommentForm(instance=Comment(article=a))
@@ -89,7 +92,12 @@ def article(request, article_id):
         Breadcrumb(name=a.title)
     ]
 
-    context = RequestContext(request, {'article': a, 'breadcrumbs': b, 'comment_form': f})
+    context = RequestContext(request, {
+        'article': a, 
+        'breadcrumbs': b,
+        'comment_form': f,
+        'comments_open': a.comments_open(),
+    })
     return render(request, 'mesoblog/article.html', context_instance=context)
 
 # Article from Slug view

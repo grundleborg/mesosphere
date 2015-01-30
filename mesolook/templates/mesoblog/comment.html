@@ -3,7 +3,7 @@
 <li class="comment" id="comment-{{ comment.id }}">
 <h5>{% if comment.site %}<a href="{{ comment.site }}">{% endif %}{{ comment.name }}{% if comment.site %}</a>{% endif %} <small>{{ comment.posted }}</small></h5>
   <p class="comment-contents">{{ comment.contents|markdown_unsafe|safe }}</p>
-  <p class="comment-actions"><a href="#" onClick="return false;" id="comment-reply-{{ comment.id }}" data-target="#comment-reply-container-{{ comment.id }}" data-toggle="collapse">Reply</a></p>
+  <p class="comment-actions">{% if comments_open %}<a href="#" onClick="return false;" id="comment-reply-{{ comment.id }}" data-target="#comment-reply-container-{{ comment.id }}" data-toggle="collapse">Reply</a>{% endif %}</p>
   <div id="comment-reply-container-{{ comment.id }}" class="collapse">
     <div class="row">
     <form class="form-horizontal" role="form" action="{% url 'mesoblog.articleFromSlug' article.slug %}" method="post" id="comment-reply-form-{{ comment.id }}">{% csrf_token %}
