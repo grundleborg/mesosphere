@@ -1,4 +1,4 @@
-import floppyforms as forms
+import floppyforms.__future__ as forms
 
 from datetime import datetime
 
